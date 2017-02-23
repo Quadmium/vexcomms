@@ -13,25 +13,30 @@ bool clientReady();
 void send(bool bit);
 
 bool needToSend = true;
-char message[] = "CORAL!";
+char message[] = "szvehjeneh threeas ahre thalle";
 
 task main()
 {
 	clearDebugStream();
 	ready(0);
+	int i=0;
 	while(true)
 	{
 		// Can take over transmission
 		if(canSend() && needToSend)
 		{
-			sendMessage(message);
+			char buf[400];
+			sprintf(buf, "%d", i);
+			strcat(buf, message);
+			i++;
+			sendMessage(buf);
 			//endMessage();
 
 			needToSend = false;
 		}
 		//message++;
 		needToSend = true;
-		wait1Msec(300);
+		//wait1Msec(300);
 	}
 }
 
@@ -43,12 +48,12 @@ void sendMessage(char *c)
 	for(int charIndex = 0; lastChar != '\0'; charIndex++)
 	{
 		lastChar = c[charIndex];
-		writeDebugStreamLine("%c", lastChar);
+		//writeDebugStreamLine("%c", lastChar);
 
 		int m = (int)lastChar;
 		for(int k=0; k<8; k++)
 		{
-			writeDebugStream("%d",m%2);
+			//writeDebugStream("%d",m%2);
 			// Send one bit of message
 			send(m % 2);
 
