@@ -44,8 +44,9 @@ void sendMessage(char *c)
 	{
 		lastChar = c[charIndex];
 		writeDebugStreamLine("%c", lastChar);
-		int m = (int)c;
-		for(; m > 0; m/=2)
+
+		int m = (int)lastChar;
+		for(int k=0; k<8; k++)
 		{
 			writeDebugStream("%d",m%2);
 			// Send one bit of message
@@ -71,6 +72,8 @@ void sendMessage(char *c)
 			{
 				// Could sleep here but see if it lowers transmission speed if you do
 			}
+
+			m /= 2;
 		}
 	}
 }
